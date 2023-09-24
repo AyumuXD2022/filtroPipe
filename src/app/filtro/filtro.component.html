@@ -1,0 +1,49 @@
+<div class="mb-3">
+  <label for="exampleInputEmail1" class="form-label">Nombre</label>
+  <input [(ngModel)]="filtrarNombre" type="text" class="form-control" id="exampleInputEmail1"
+    aria-describedby="emailHelp" (input)="onFiltroPalabraChange()">
+</div>
+<div class="mb-3">
+  <label for="exampleInputEmail1" class="form-label">Apellido</label>
+  <input [(ngModel)]="filtrarApellido" type="text" class="form-control" id="exampleInputEmail1"
+    aria-describedby="emailHelp" (input)="onFiltroPalabraChange()">
+</div>
+<div class="mb-3">
+  <label for="exampleInputEmail1" class="form-label">Email</label>
+  <input [(ngModel)]="filtrarEmail" type="text" class="form-control" id="exampleInputEmail1"
+    aria-describedby="emailHelp" (input)="onFiltroPalabraChange()">
+</div>
+<div *ngIf="noResultados" class="alert alert-danger text-center" role="alert">
+  No se encontraron resultados.
+</div>
+<label>Mostrar</label>
+<select [(ngModel)]="mostrarPor" (change)="onMostrarPorChange()" class="form-select" aria-label="Default select example">
+  <option value="" selected disabled>Seleccione</option>
+  <option value="">Todos</option>
+  <option value="5">5</option>
+  <option value="10">10</option>
+  <option value="20">20</option>
+</select>
+<table *ngIf="!noResultados" class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Edad</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let persona of personas | filterPersona: filtrarNombre: filtrarEmail :filtrarApellido: updateNoResultados.bind(this)">
+      <td>{{persona._id}}</td>
+      <td>{{persona.nombre}}</td>
+      <td>{{persona.apellido}}</td>
+      <td>{{persona.edad}}</td>
+      <td>{{persona.email}}</td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="prevPage()" [disabled]="currentPage === 1">Página anterior</button>
+<button (click)="nextPage()" [disabled]="(currentPage === totalPages) || mostrarPor === ''">Página siguiente</button>
