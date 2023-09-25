@@ -30,8 +30,8 @@ onMostrarPorChange() {
   private getPersona() {
     this.personaService.getPersonas(this.currentPage, this.mostrarPor).subscribe(
       ( response ) => {
-        this.personas = response.response.data;  // Asumiendo que los datos vienen en response.response.data
-        this.totalPages = response.response.totalPages;  // Actualizar totalPages
+        this.personas = response.response.data;  
+        this.totalPages = response.response.totalPages;
         this.noResultados = this.personas?.length === 0;
         this.totalItems = response.response.totalItems
         console.log(this.totalItems)
